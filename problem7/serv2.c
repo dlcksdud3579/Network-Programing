@@ -86,17 +86,23 @@ int main(int argc, char *argv[])
 					switch (rockPaperScissors(buf))
 					{
 					case -1:
-						write(ep_events[i].data.fd, "Defeat\n", 8);
+						
+						strcpy(buf,"Defeat\n");
+						shutdown(ep_events[i].data.fd, SHUT_RD);
 						break;
 					case 0:
-						write(ep_events[i].data.fd, "Draw\n", 6);
+						strcpy(buf,"Draw\n");
 						break;
 					case 1:
-						write(ep_events[i].data.fd, "Win\n", 5);
+						strcpy(buf,"Win\n");
 						break;
 					default:
 						break;
 					};
+
+					
+					write(ep_events[i].data.fd,buf, sizeof(buf));
+
 
 					 // echo!
 				}
