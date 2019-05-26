@@ -12,6 +12,7 @@
 void * send_msg(void * arg);
 void * recv_msg(void * arg);
 void error_handling(char * msg);
+void printfRule();
 	
 char name[NAME_SIZE]="[DEFAULT]";
 char msg[BUF_SIZE];
@@ -34,7 +35,11 @@ int main(int argc, char *argv[])
 	serv_addr.sin_family=AF_INET;
 	serv_addr.sin_addr.s_addr=inet_addr(argv[1]);
 	serv_addr.sin_port=htons(atoi(argv[2]));
-	  
+
+
+	
+	printfRule();
+
 	if(connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr))==-1)
 		error_handling("connect() error");
 	
@@ -58,8 +63,21 @@ void * send_msg(void * arg)   // send thread main
 			close(sock);
 			exit(0);
 		}
-		sprintf(name_msg,"%s %s", name, msg);
-		write(sock, name_msg, strlen(name_msg));
+		else if(!strcmp(msg,"1\n"))
+		{
+			sprintf(name_msg,"%s %s", name, msg);
+			write(sock, name_msg, strlen(name_msg));
+		}
+		else if(!strcmp(msg,"2\n"))
+		{
+			
+		}
+		else if(!strcmp(msg,"3\n"))
+		{
+			printfRule();
+		}
+
+		
 	}
 	return NULL;
 }
@@ -85,4 +103,10 @@ void error_handling(char *msg)
 	fputs(msg, stderr);
 	fputc('\n', stderr);
 	exit(1);
+}
+
+void printfRule()
+{
+	printf(" relay_novel_game(q:quit, 1:input novel 2:read novel 3:rule)\n");
+	printf("rule 1: input not repeat\n rule 2: 1 line  is 100 leter\n rule 3: can't paly it alone");
 }

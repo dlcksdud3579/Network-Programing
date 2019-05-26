@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	novel = fopen("novel.txt","w");
+	novel = fopen("novel.txt","a+");
 
 
   
@@ -75,7 +75,10 @@ void * handle_clnt(void * arg)
 	int clnt_sock=*((int*)arg);
 	int str_len=0, i;
 	char msg[BUF_SIZE];
-	
+
+	send_msg("Come in new man\n",18, clnt_sock);
+
+
 	while((str_len=read(clnt_sock, msg, sizeof(msg)))!=0)
 		send_msg(msg, str_len, clnt_sock);
 	
