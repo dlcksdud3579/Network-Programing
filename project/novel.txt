@@ -1,0 +1,3 @@
+[name] hi
+[chan] hello
+[name] hello

@@ -65,12 +65,14 @@ void * send_msg(void * arg)   // send thread main
 		}
 		else if(!strcmp(msg,"1\n"))
 		{
+			printf("input novel:");
+			fgets(msg, BUF_SIZE, stdin);
 			sprintf(name_msg,"%s %s", name, msg);
 			write(sock, name_msg, strlen(name_msg));
 		}
 		else if(!strcmp(msg,"2\n"))
 		{
-			
+			write(sock, "2", 2);
 		}
 		else if(!strcmp(msg,"3\n"))
 		{
@@ -108,5 +110,5 @@ void error_handling(char *msg)
 void printfRule()
 {
 	printf(" relay_novel_game(q:quit, 1:input novel 2:read novel 3:rule)\n");
-	printf("rule 1: input not repeat\n rule 2: 1 line  is 100 leter\n rule 3: can't paly it alone");
+	printf("rule 1: input not repeat\nrule 2: 1 line  is 100 leter\nrule 3: can't paly it alone\nrule 4:no repeat\n");
 }
